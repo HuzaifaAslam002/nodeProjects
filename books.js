@@ -21,12 +21,12 @@ let booksModel = mongoose.model('booksCollection',booksSchema);
 
 
 
-async function getBook(){
+/* async function getBook(){
 const result =await booksModel.find();
-console.log(result);}
+console.log(result);} */
 
 
-getBook();
+//getBook();
 
 
 
@@ -44,9 +44,12 @@ getBook();
     next();
 });
 
-booksRouter.get('/',(req,res,next)=>{
-     res.send(getBook());
-    next();
+// use await in an async function to get data from database
+// otherwise it will cause error ☻
+booksRouter.get('/',async(req,res)=>{
+    let data= await booksModel.find();
+    console.log(data)
+    res.send(data);
 }); 
 
 
